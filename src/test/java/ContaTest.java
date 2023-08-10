@@ -25,12 +25,11 @@ public class ContaTest {
     }
 
     // annotation @Test, nomes dos métodos devem ser precisos
-
     @Test
     @DisplayName("Deve Depositar Somente com Conta Ativa")
     public void deveDepositarComContaAtiva(){
 
-        conta.depositar(depositoInicial);
+        Assertions.assertTrue(conta.depositar(depositoInicial));
 
         Assertions.assertEquals(depositoInicial,conta.getSaldo());
     }
@@ -41,7 +40,7 @@ public class ContaTest {
 
         conta.inativar();
 
-        conta.depositar(depositoInicial);
+        Assertions.assertFalse(conta.depositar(depositoInicial));
 
         Assertions.assertEquals(saldoZerado,conta.getSaldo());
     }
@@ -50,7 +49,7 @@ public class ContaTest {
     @DisplayName("Deve Sacar com Conta Ativa e Saldo Maior que o Valor do Saque")
     public void devesacarComContaAtivaESaldoMaiorQueValorDoSaque(){
 
-        conta.depositar(depositoInicial);
+        Assertions.assertTrue(conta.depositar(depositoInicial));
 
         conta.sacar(saqueValido);
 
@@ -61,11 +60,11 @@ public class ContaTest {
     @DisplayName("Não Deve Sacar com Conta Inativa")
     public void naodevesacarComContaInativa(){
 
-        conta.depositar(depositoInicial);
+        Assertions.assertTrue(conta.depositar(depositoInicial));
 
         conta.inativar();
 
-        conta.sacar(saqueValido);
+        Assertions.assertFalse(conta.sacar(saqueValido));
 
         Assertions.assertEquals(depositoInicial,conta.getSaldo());
     }
@@ -74,9 +73,9 @@ public class ContaTest {
     @DisplayName("Não Deve Sacar com Conta Ativa e Saldo Menor que o Valor do Saque")
     public void naodevesacarComContaAtivaESaldoMenorQueValorDoSaque(){
 
-        conta.depositar(depositoInicial);
+        Assertions.assertTrue(conta.depositar(depositoInicial));
 
-        conta.sacar(saqueInvalido);
+        Assertions.assertFalse(conta.sacar(saqueInvalido));
 
         Assertions.assertEquals(depositoInicial,conta.getSaldo());
     }

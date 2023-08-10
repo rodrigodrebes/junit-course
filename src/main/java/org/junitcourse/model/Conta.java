@@ -15,19 +15,23 @@ public class Conta {
         this.ativo=false;
     }
 
-    public void depositar(double valor) {
+    public boolean depositar(double valor) {
         if (this.ativo) {
             this.saldo += valor;
+            return true;
         } else{
             System.out.println("Conta inativa!");
+            return false;
         }
     }
 
-    public void sacar(double valor) {
+    public boolean sacar(double valor) {
         if ((this.ativo) && (this.saldo >= valor)) {
             this.saldo -= valor;
+            return true;
         } else{
             System.out.println("Conta inativa ou saldo menor que o valor do saque!");
+            return false;
         }
     }
 
