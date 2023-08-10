@@ -29,7 +29,7 @@ public class ContaTest {
     @DisplayName("Deve Depositar Somente com Conta Ativa")
     public void deveDepositarComContaAtiva(){
 
-        Assertions.assertTrue(conta.depositar(depositoInicial));
+        conta.depositar(depositoInicial);
 
         Assertions.assertEquals(depositoInicial,conta.getSaldo());
     }
@@ -40,7 +40,7 @@ public class ContaTest {
 
         conta.inativar();
 
-        Assertions.assertFalse(conta.depositar(depositoInicial));
+        Assertions.assertThrows(RuntimeException.class, () -> conta.depositar(depositoInicial));
 
         Assertions.assertEquals(saldoZerado,conta.getSaldo());
     }
@@ -49,7 +49,7 @@ public class ContaTest {
     @DisplayName("Deve Sacar com Conta Ativa e Saldo Maior que o Valor do Saque")
     public void devesacarComContaAtivaESaldoMaiorQueValorDoSaque(){
 
-        Assertions.assertTrue(conta.depositar(depositoInicial));
+        conta.depositar(depositoInicial);
 
         conta.sacar(saqueValido);
 
@@ -60,22 +60,22 @@ public class ContaTest {
     @DisplayName("Não Deve Sacar com Conta Inativa")
     public void naodevesacarComContaInativa(){
 
-        Assertions.assertTrue(conta.depositar(depositoInicial));
+     conta.depositar(depositoInicial);
 
         conta.inativar();
 
-        Assertions.assertFalse(conta.sacar(saqueValido));
+        Assertions.assertThrows(RuntimeException.class, () -> conta.sacar(saqueValido));
 
         Assertions.assertEquals(depositoInicial,conta.getSaldo());
     }
 
     @Test
     @DisplayName("Não Deve Sacar com Conta Ativa e Saldo Menor que o Valor do Saque")
-    public void naodevesacarComContaAtivaESaldoMenorQueValorDoSaque(){
+    public void naoDeveSacarComContaAtivaESaldoMenorQueValorDoSaque(){
 
-        Assertions.assertTrue(conta.depositar(depositoInicial));
+        conta.depositar(depositoInicial);
 
-        Assertions.assertFalse(conta.sacar(saqueInvalido));
+        Assertions.assertThrows(RuntimeException.class, () -> conta.sacar(saqueInvalido));
 
         Assertions.assertEquals(depositoInicial,conta.getSaldo());
     }
