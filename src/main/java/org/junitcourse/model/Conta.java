@@ -27,7 +27,7 @@ public class Conta {
         if ((this.ativo) && (this.saldo >= valor)) {
             this.saldo -= valor;
         } else{
-            System.out.println("Conta inativa!");
+            System.out.println("Conta inativa ou saldo menor que o valor do saque!");
         }
     }
 
