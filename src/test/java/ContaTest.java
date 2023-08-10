@@ -1,19 +1,23 @@
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junitcourse.model.Conta;
 
 public class ContaTest {
 
+    private Conta conta;
+    @BeforeEach
+    public void inicializarConta(){
+        conta = new Conta();
+        conta.ativar();
+    }
+
     // annotation @Test, nomes dos métodos devem ser precisos
 
     @Test
     @DisplayName("Deve Depositar Somente com Conta Ativa")
     public void deveDepositarComContaAtiva(){
-
-        Conta conta = new Conta();
-
-        conta.ativar();
 
         conta.depositar(100);
 
@@ -24,10 +28,6 @@ public class ContaTest {
     @DisplayName("Não Deve Depositar com Conta Inativa")
     public void naoDeveDepositarComContaInativa(){
 
-        Conta conta = new Conta();
-
-        conta.inativar();
-
         conta.depositar(100);
 
         Assertions.assertEquals(0,conta.getSaldo());
@@ -36,10 +36,6 @@ public class ContaTest {
     @Test
     @DisplayName("Deve Sacar com Conta Ativa e Saldo Maior que o Valor do Saque")
     public void devesacarComContaAtivaESaldoMaiorQueValorDoSaque(){
-
-        Conta conta = new Conta();
-
-        conta.ativar();
 
         conta.depositar(100);
 
@@ -51,10 +47,6 @@ public class ContaTest {
     @Test
     @DisplayName("Não Deve Sacar com Conta Inativa")
     public void naodevesacarComContaInativa(){
-
-        Conta conta = new Conta();
-
-        conta.ativar();
 
         conta.depositar(100);
 
@@ -68,10 +60,6 @@ public class ContaTest {
     @Test
     @DisplayName("Não Deve Sacar com Conta Ativa e Saldo Menor que o Valor do Saque")
     public void naodevesacarComContaAtivaESaldoMenorQueValorDoSaque(){
-
-        Conta conta = new Conta();
-
-        conta.ativar();
 
         conta.depositar(100);
 
