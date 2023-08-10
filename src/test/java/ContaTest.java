@@ -1,14 +1,25 @@
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junitcourse.model.Conta;
 
 public class ContaTest {
 
     private Conta conta;
+    private static double depositoInicial;
+    private static double saqueValido;
+    private static double saqueInvalido;
+
+    private static double saldoZerado;
+
+    @BeforeAll
+    private static void definirValoresPadrao(){
+        saldoZerado=0;
+        depositoInicial = 100;
+        saqueValido = 70;
+        saqueInvalido = 120;
+    }
+
     @BeforeEach
-    public void inicializarConta(){
+    private void inicializarConta(){
         conta = new Conta();
         conta.ativar();
     }
@@ -19,53 +30,55 @@ public class ContaTest {
     @DisplayName("Deve Depositar Somente com Conta Ativa")
     public void deveDepositarComContaAtiva(){
 
-        conta.depositar(100);
+        conta.depositar(depositoInicial);
 
-        Assertions.assertEquals(100,conta.getSaldo());
+        Assertions.assertEquals(depositoInicial,conta.getSaldo());
     }
 
     @Test
     @DisplayName("Não Deve Depositar com Conta Inativa")
     public void naoDeveDepositarComContaInativa(){
 
-        conta.depositar(100);
+        conta.inativar();
 
-        Assertions.assertEquals(0,conta.getSaldo());
+        conta.depositar(depositoInicial);
+
+        Assertions.assertEquals(saldoZerado,conta.getSaldo());
     }
 
     @Test
     @DisplayName("Deve Sacar com Conta Ativa e Saldo Maior que o Valor do Saque")
     public void devesacarComContaAtivaESaldoMaiorQueValorDoSaque(){
 
-        conta.depositar(100);
+        conta.depositar(depositoInicial);
 
-        conta.sacar(70);
+        conta.sacar(saqueValido);
 
-        Assertions.assertEquals(30,conta.getSaldo());
+        Assertions.assertEquals(depositoInicial-saqueValido ,conta.getSaldo());
     }
 
     @Test
     @DisplayName("Não Deve Sacar com Conta Inativa")
     public void naodevesacarComContaInativa(){
 
-        conta.depositar(100);
+        conta.depositar(depositoInicial);
 
         conta.inativar();
 
-        conta.sacar(70);
+        conta.sacar(saqueValido);
 
-        Assertions.assertEquals(100,conta.getSaldo());
+        Assertions.assertEquals(depositoInicial,conta.getSaldo());
     }
 
     @Test
     @DisplayName("Não Deve Sacar com Conta Ativa e Saldo Menor que o Valor do Saque")
     public void naodevesacarComContaAtivaESaldoMenorQueValorDoSaque(){
 
-        conta.depositar(100);
+        conta.depositar(depositoInicial);
 
-        conta.sacar(120);
+        conta.sacar(saqueInvalido);
 
-        Assertions.assertEquals(100,conta.getSaldo());
+        Assertions.assertEquals(depositoInicial,conta.getSaldo());
     }
 
 }
