@@ -1,4 +1,6 @@
-package org.junitcourse.model;
+package org.junitcourse.manualtest;
+
+import org.junitcourse.model.Conta.Conta;
 
 public class ManualTest {
     public static void main(String[] args) {

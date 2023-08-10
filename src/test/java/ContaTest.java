@@ -1,5 +1,5 @@
 import org.junit.jupiter.api.*;
-import org.junitcourse.model.Conta;
+import org.junitcourse.model.Conta.Conta;
 
 public class ContaTest {
 

@@ -1,4 +1,4 @@
-package org.junitcourse.model;
+package org.junitcourse.model.Conta;
 
 public class Conta {
 
